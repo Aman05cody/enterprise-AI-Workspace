@@ -1,20 +1,20 @@
-﻿# Enterprise AI Workspace
+# Enterprise AI Workspace
 
-Production-oriented multi-tenant **Enterprise AI Workspace** â€” knowledge management, grounded RAG chat, connectors, and admin analytics.
+Production-oriented multi-tenant **Enterprise AI Workspace** — knowledge management, grounded RAG chat, connectors, and admin analytics.
 
 | Phase | Status |
 |-------|--------|
-| 1 Planning | âœ… |
-| 2 Foundation / Auth / RBAC | âœ… |
-| 3 Document management | âœ… |
-| 4 RAG indexing | âœ… |
-| 5 Enterprise chat | âœ… |
-| 6 GitHub intelligence | âœ… |
-| 7 Notion + Google Drive | âœ… |
-| 8 Slack + Jira | âœ… |
-| 9 Admin analytics | âœ… |
-| 10 Testing / CI / Deploy | âœ… |
-| **11 Production hardening+** | âœ… **Complete** |
+| 1 Planning | ✅ |
+| 2 Foundation / Auth / RBAC | ✅ |
+| 3 Document management | ✅ |
+| 4 RAG indexing | ✅ |
+| 5 Enterprise chat | ✅ |
+| 6 GitHub intelligence | ✅ |
+| 7 Notion + Google Drive | ✅ |
+| 8 Slack + Jira | ✅ |
+| 9 Admin analytics | ✅ |
+| 10 Testing / CI / Deploy | ✅ |
+| **11 Production hardening+** | ✅ **Complete** |
 
 **Version:** `1.1.0`
 
@@ -45,7 +45,7 @@ npm run dev
 - Health: http://localhost:8000/health  
 - Metrics: http://localhost:8000/metrics  
 
-Seed demo: `python -m scripts.seed` â†’ `owner@example.com` / `Owner123!`
+Seed demo: `python -m scripts.seed` → `owner@example.com` / `Owner123!`
 
 ---
 
@@ -57,7 +57,7 @@ See **[docs/RENDER.md](./docs/RENDER.md)** and root `render.yaml`.
 # 1) Login to GitHub, push repo
 powershell -ExecutionPolicy Bypass -File scripts\push-and-deploy-render.ps1
 
-# 2) In browser: Render â†’ New â†’ Blueprint â†’ connect repo â†’ Apply
+# 2) In browser: Render → New → Blueprint → connect repo → Apply
 ```
 
 ## Production (Docker / VPS)
@@ -70,7 +70,6 @@ cp .env.example .env.prod
 docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 ```
 
-Interview prep: **[docs/INTERVIEW-QUESTIONS.md](./docs/INTERVIEW-QUESTIONS.md)**  
 Security checklist: **[docs/SECURITY.md](./docs/SECURITY.md)**  
 Architecture & planning: **[docs/README.md](./docs/README.md)**
 
@@ -92,7 +91,7 @@ Architecture & planning: **[docs/README.md](./docs/README.md)**
 
 - Multi-tenant workspaces + RBAC + departments  
 - Knowledge bases, upload, versioning, preview  
-- Async/sync ingestion â†’ chunks â†’ embeddings â†’ vectors  
+- Async/sync ingestion → chunks → embeddings → vectors  
 - Streaming chat with citations + refuse-on-weak-context  
 - Connectors: GitHub, Notion, Drive, Slack, Jira  
 - Analytics dashboard + audit + `/metrics`  
@@ -111,14 +110,6 @@ GitHub Actions (`.github/workflows/ci.yml`):
 
 Prometheus metrics: `GET /metrics/prometheus`  
 Operator JSON metrics: `GET /metrics`
-
----
-
-## Phase 11 notes
-
-- Dependabot weekly updates  
-- Rate limiting middleware on API/auth  
-- TLS Nginx example: `infra/nginx/conf.d/tls.example.conf`  
 
 ---
 
