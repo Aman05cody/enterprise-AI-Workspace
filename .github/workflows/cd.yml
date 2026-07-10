@@ -1,0 +1,58 @@
+name: CD (manual)
+
+# Placeholder deploy workflow — configure secrets for your target registry/host.
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  publish:
+    name: Build and push images
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        if: ${{ secrets.GITHUB_TOKEN != '' }}
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build API
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/eaw-api:${{ github.sha }}
+          docker build -t "$IMAGE" ./apps/api
+          echo "API_IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Build Web
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/eaw-web:${{ github.sha }}
+          docker build \
+            --build-arg NEXT_PUBLIC_API_URL=${{ vars.PUBLIC_API_URL || 'http://localhost' }} \
+            -t "$IMAGE" ./apps/web
+          echo "WEB_IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Push (optional)
+        if: ${{ github.event_name == 'workflow_dispatch' && secrets.ENABLE_PUSH == 'true' }}
+        run: |
+          docker push "$API_IMAGE"
+          docker push "$WEB_IMAGE"
+
+      - name: Deploy note
+        run: |
+          echo "Images built for environment=${{ inputs.environment }}"
+          echo "Wire this job to your host (SSH, ECS, K8s, etc.) using repository secrets."
