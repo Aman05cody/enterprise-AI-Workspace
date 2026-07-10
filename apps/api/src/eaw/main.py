@@ -34,6 +34,15 @@ class _MetricsState:
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     setup_logging()
+    # Local SQLite: auto-create tables so register works without Postgres/Docker
+    try:
+        from eaw.infrastructure.db.session import init_db
+
+        init_db()
+    except Exception:  # noqa: BLE001
+        import logging
+
+        logging.getLogger(__name__).exception("init_db failed")
     yield
 
 

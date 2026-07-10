@@ -40,9 +40,19 @@ export default function RegisterPage() {
       persistSession(tokens);
       router.push("/dashboard");
     } catch (err: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const ax = err as any;
       const msg =
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (err as any)?.response?.data?.error?.message || "Registration failed";
+        ax?.response?.data?.error?.message ||
+        (ax?.code === "ERR_NETWORK"
+          ? "Cannot reach API at " +
+            (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000") +
+            ". Is the backend running?"
+          : null) ||
+        (ax?.response?.status === 500
+          ? "Server error — database may be unavailable. Check API logs."
+          : null) ||
+        "Registration failed";
       setError(msg);
     }
   };

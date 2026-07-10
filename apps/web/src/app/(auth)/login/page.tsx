@@ -35,9 +35,17 @@ export default function LoginPage() {
       persistSession(tokens);
       router.push("/dashboard");
     } catch (err: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const ax = err as any;
       const msg =
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (err as any)?.response?.data?.error?.message || "Login failed";
+        ax?.response?.data?.error?.message ||
+        (ax?.code === "ERR_NETWORK"
+          ? "Cannot reach API. Is the backend running on port 8000?"
+          : null) ||
+        (ax?.response?.status === 500
+          ? "Server error — database may be unavailable."
+          : null) ||
+        "Login failed";
       setError(msg);
     }
   };

@@ -4,8 +4,7 @@ from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
-from sqlalchemy import BigInteger, DateTime, Integer, String
-from sqlalchemy.dialects.postgresql import JSONB, UUID as PGUUID
+from sqlalchemy import BigInteger, DateTime, Integer, String, Uuid, JSON
 from sqlalchemy.orm import Mapped, mapped_column
 
 from eaw.infrastructure.db.base import Base, UUIDPrimaryKeyMixin
@@ -15,19 +14,19 @@ class UsageEvent(UUIDPrimaryKeyMixin, Base):
     __tablename__ = "usage_events"
 
     organization_id: Mapped[UUID] = mapped_column(
-        PGUUID(as_uuid=True), nullable=False, index=True
+        Uuid(as_uuid=True), nullable=False, index=True
     )
     user_id: Mapped[Optional[UUID]] = mapped_column(
-        PGUUID(as_uuid=True), nullable=True, index=True
+        Uuid(as_uuid=True), nullable=True, index=True
     )
     department_id: Mapped[Optional[UUID]] = mapped_column(
-        PGUUID(as_uuid=True), nullable=True, index=True
+        Uuid(as_uuid=True), nullable=True, index=True
     )
     event_type: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     model: Mapped[Optional[str]] = mapped_column(String(120), nullable=True)
     input_tokens: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     output_tokens: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    metadata_: Mapped[dict] = mapped_column("metadata", JSONB, nullable=False, default=dict)
+    metadata_: Mapped[dict] = mapped_column("metadata", JSON, nullable=False, default=dict)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, index=True
     )
@@ -39,7 +38,7 @@ class OrganizationUsageCounter(Base):
     __tablename__ = "organization_usage_counters"
 
     organization_id: Mapped[UUID] = mapped_column(
-        PGUUID(as_uuid=True), primary_key=True
+        Uuid(as_uuid=True), primary_key=True
     )
     period_start: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), primary_key=True
