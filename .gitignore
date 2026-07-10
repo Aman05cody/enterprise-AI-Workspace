@@ -45,3 +45,5 @@ uploads/
 
 # Alembic noise
 # keep migrations
+.vercel/
+

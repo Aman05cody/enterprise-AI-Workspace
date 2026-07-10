@@ -49,16 +49,17 @@ Seed demo: `python -m scripts.seed` → `owner@example.com` / `Owner123!`
 
 ---
 
-## Deploy on Render (public URL)
+## Deploy free on Vercel (recommended)
 
-See **[docs/RENDER.md](./docs/RENDER.md)** and root `render.yaml`.
+No paid hosting. See **[docs/VERCEL.md](./docs/VERCEL.md)**.
 
-```powershell
-# 1) Login to GitHub, push repo
-powershell -ExecutionPolicy Bypass -File scripts\push-and-deploy-render.ps1
+1. https://vercel.com/signup (GitHub)  
+2. Import this repo **twice**:
+   - Project 1 root: `apps/api`  
+   - Project 2 root: `apps/web` + env `NEXT_PUBLIC_API_URL=<api-url>`  
+3. Open the web URL and register  
 
-# 2) In browser: Render → New → Blueprint → connect repo → Apply
-```
+(Older Render notes: [docs/RENDER.md](./docs/RENDER.md) — optional.)
 
 ## Production (Docker / VPS)
 
