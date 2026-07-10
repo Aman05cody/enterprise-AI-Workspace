@@ -2,19 +2,24 @@
 
 Production-oriented multi-tenant **Enterprise AI Workspace** — knowledge management, grounded RAG chat, connectors, and admin analytics.
 
-| Phase | Status |
-|-------|--------|
-| 1 Planning | ✅ |
-| 2 Foundation / Auth / RBAC | ✅ |
-| 3 Document management | ✅ |
-| 4 RAG indexing | ✅ |
-| 5 Enterprise chat | ✅ |
-| 6 GitHub intelligence | ✅ |
-| 7 Notion + Google Drive | ✅ |
-| 8 Slack + Jira | ✅ |
-| 9 Admin analytics | ✅ |
-| 10 Testing / CI / Deploy | ✅ |
-| **11 Production hardening+** | ✅ **Complete** |
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-eaw--web.vercel.app-black?style=for-the-badge&logo=vercel)](https://eaw-web.vercel.app)
+[![API](https://img.shields.io/badge/API-eaw--api.vercel.app-blue?style=for-the-badge&logo=fastapi)](https://eaw-api.vercel.app/docs)
+[![Health](https://img.shields.io/badge/Health-ok-success?style=for-the-badge)](https://eaw-api.vercel.app/health)
+
+## 🌐 Live demo
+
+| | URL |
+|--|-----|
+| **Web app** | **[https://eaw-web.vercel.app](https://eaw-web.vercel.app)** |
+| **API** | [https://eaw-api.vercel.app](https://eaw-api.vercel.app) |
+| **API docs (Swagger)** | [https://eaw-api.vercel.app/docs](https://eaw-api.vercel.app/docs) |
+| **Health check** | [https://eaw-api.vercel.app/health](https://eaw-api.vercel.app/health) |
+
+**Try it:** open the web app → **Register** (password ≥ 8 chars, letters + numbers) → create a workspace.
+
+> Free Vercel hobby deploy. First load can be slow (cold start). Demo AI uses echo/hash providers (no paid OpenAI key required). SQLite data may reset on cold starts.
+
+More deploy notes: **[docs/VERCEL.md](./docs/VERCEL.md)** · **[DEMO.md](./DEMO.md)**
 
 **Version:** `1.1.0`
 
