@@ -11,9 +11,12 @@
 #   - Free Postgres may require a paid starter plan on newer Render accounts
 #   - Demo AI: hash embeddings + echo LLM (set OPENAI_API_KEY later for real answers)
 
+# Postgres: Render no longer offers free DBs on many accounts.
+# basic-256mb is the cheapest paid starter (~$6–7/mo).
+# Or create free Neon (neon.tech) and paste DATABASE_URL into eaw-api manually.
 databases:
   - name: eaw-db
-    plan: free
+    plan: basic-256mb
     databaseName: eaw
     user: eaw
     postgresMajorVersion: "16"
@@ -29,9 +32,12 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: bash start.sh
     healthCheckPath: /health
+    autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
         value: "3.12.8"
+      - key: PYTHONPATH
+        value: src
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
@@ -82,6 +88,7 @@ services:
     buildCommand: npm ci && npm run build
     startCommand: npm run start -- --hostname 0.0.0.0 --port $PORT
     healthCheckPath: /
+    autoDeploy: true
     envVars:
       - key: NODE_VERSION
         value: "20.18.0"
