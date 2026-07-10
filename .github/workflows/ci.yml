@@ -26,7 +26,7 @@ jobs:
       VECTOR_STORE_BACKEND: memory
       LLM_PROVIDER: echo
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -78,7 +78,7 @@ jobs:
       DATABASE_URL: postgresql+psycopg://eaw:eaw_secret@localhost:5432/eaw_test
       TEST_DATABASE_URL: postgresql+psycopg://eaw:eaw_secret@localhost:5432/eaw_test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -104,7 +104,7 @@ jobs:
     env:
       NEXT_PUBLIC_API_URL: http://localhost:8000
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -126,7 +126,7 @@ jobs:
     name: Dependency audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -156,7 +156,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [api, web]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Build API image
         run: docker build -t eaw-api:ci ./apps/api
